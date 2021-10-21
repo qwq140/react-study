@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // concat, filter, map, slice, 스프레드 연산자
+    console.log("1. =============== 스프레드 연산자");
+    const a = [1,2,3];
+    const b = [...a];
+    b.push(4); // b의 데이터 변경
+    console.log(`a의 값은 : ${a}`);
+    console.log(`b의 값은 : ${b}`);
+
+    console.log("2. =============== 추가하기");
+    const a2 = [1,2,3];
+    const b2 = a2.concat(4);
+    console.log(`a2의 값은 : ${a2}`); // 1,2,3
+    console.log(`b2의 값은 : ${b2}`); // 1,2,3,4
+    const c2 = [0, ...a2, 4];
+    console.log(`c2의 값은 : ${c2}`); // 1,2,3,4
+
+    console.log("3. =============== 걸러내기");
+    const a3 = [1,2,3];
+    const b3 = a3.filter((n)=>{return n != 1;}); // bool을 return 받는다. -> true만 걸러낸다.
+    console.log(`b3의 값은 : ${b3}`); // 2,3
+
+    console.log("4. =============== 잘라내기");
+    const a4 = [1,2,3];
+    const b4 = a4.slice(0,2); // 직전까지
+    console.log(b4); // [1,2]
+    const c4 = [...a4.slice(0,2),4,...a4.slice(2,3)];
+    console.log(c4); // [1,2,4,3]
+
+    console.log("5. =============== 반복하기");
+    const a5 = [1,2,3];
+    // for(let i=0; i<a5.length ; i++){
+    //     console.log(a5[i]);
+    // }
+    // a5.forEach((n) => {console.log(n);}); // 리턴 못함.
+    const b5 = a5.map((n) => n); // const b5 = [...a5];
+    console.log(b5);
+
+    const data = {phone:"2222"};
+    const a6 = {id:1, name:"홍길동", phone:"1111",age:17, gender:"남"};
+    const b6 = {...a6, ...data};
+    console.log(b6);
+
+    const users = [
+        {id:1,name:"구태모",phone:"2222"},
+        {id:2,name:"이대엽",phone:"3333"},
+        {id:3,name:"오승훈",phone:"4444"},
+    ];
+
+    const updateUserDto = {
+        id:2, name:"홍길동"
+    };
+
+    const updateUsers = users.map((user) => user.id===updateUserDto.id ? {...user,...updateUserDto} : user);
+
+    console.log(updateUsers);
+
+</script>
+</body>
+</html>

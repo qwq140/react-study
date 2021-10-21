@@ -1,25 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import {Route} from "react-router-dom";
+import Navigation from "./components/Navigation";
+import ListPage from "./pages/ListPage";
+import WritePage from "./pages/WritePage";
+
+// 글쓰기, 글삭제, 글목록보
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div>
+            <Navigation/>
+            <Route path="/" exact={true} component={ListPage}/>
+            <Route path="/write" exact={true} component={WritePage}/>
+        </div>
+    );
 }
 
 export default App;
