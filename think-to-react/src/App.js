@@ -19,6 +19,8 @@ import {useState} from "react";
  *       (1) 대개, 공통 부모에 state를 그냥 두면 된다.
  *       (2) 혹은, 공통 부모 상위의 컴포넌트에 둬도 된다.
  *       (3) state를 소유할 적절한 컴포넌트를 찾지 못했다면, state를 소유하는 컴포넌트를 하나 만들어서 상위 계층에 추가해라
+ * 5. 역 데이터 흐름 추가하기
+ *
  */
 
 /**
@@ -86,6 +88,17 @@ function ProductTable({products, filterText, inStockOnly}) {
     let lastCategory = null;
 
     products.forEach((product) => {
+        // indexOf : 특정 문자의 위치 찾기
+        // 찾는 문자열이 없으면 -1을 리턴한다.
+        // 대소문자를 구분한다.
+        if(product.name.toLowerCase().indexOf(filterText.toLowerCase()) === -1) {
+            return;
+        }
+
+        if (inStockOnly && !product.stocked) {
+            return;
+        }
+
         if (product.category !== lastCategory) {
             rows.push(
                 <ProductCategoryRow category={product.category} key={product.category}/>
@@ -110,12 +123,21 @@ function ProductTable({products, filterText, inStockOnly}) {
     );
 }
 
-function SearchBar({filterText, inStockOnly}) {
+function SearchBar({filterText, inStockOnly, onFilterTextChange, onInStockOnlyChange}) {
     return (
         <form>
-            <input type={"text"} placeholder={"Search..."} value={filterText}/>
+            <input
+                type={"text"}
+                placeholder={"Search..."}
+                value={filterText}
+                onChange={(e) => onFilterTextChange(e.target.value)}
+            />
             <label>
-                <input type={"checkbox"} checked={inStockOnly}/>
+                <input
+                    type={"checkbox"}
+                    checked={inStockOnly}
+                    onChange={(e) => onInStockOnlyChange(e.target.checked)}
+                />
                 {' '}
                 Only show products in stock
             </label>
@@ -129,8 +151,17 @@ function FilterableProductTable({products}) {
 
     return (
         <div>
-            <SearchBar filterText={filterText} inStockOnly={inStockOnly}/>
-            <ProductTable products={products} filterText={filterText} inStockOnly={inStockOnly}/>
+            <SearchBar
+                filterText={filterText}
+                inStockOnly={inStockOnly}
+                onFilterTextChange={setFilterText}
+                onInStockOnlyChange={setIsStockOnly}
+            />
+            <ProductTable
+                products={products}
+                filterText={filterText}
+                inStockOnly={inStockOnly}
+            />
         </div>
     );
 }
