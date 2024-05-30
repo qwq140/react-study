@@ -4,10 +4,13 @@ import {TodoBody} from "./components/TodoBody";
 import {TodoHeader} from "./components/TodoHeader";
 import {TodoInput} from "./components/TodoInput";
 import {TodoList} from "./components/TodoList";
+import {TodoProvider} from "./contexts/TodoContext";
 
 function App() {
   return (
-      <TodoBody/>
+      <TodoProvider>
+        <TodoBody/>
+      </TodoProvider>
   );
 }
 

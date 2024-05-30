@@ -1,21 +1,30 @@
 import {useState} from "react";
+import {useTodoDispatch, useTodoNextId} from "../contexts/TodoContext";
 
 export function TodoInput({todos, handleTodos}) {
 
     const [inputValue, setInputValue] = useState("");
+
+
+    const nextId = useTodoNextId();
+    const dispatch = useTodoDispatch();
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
     }
 
     const handleAddTodo = () => {
-        if(inputValue.trim()){
-            handleTodos([...todos, {
-                id : todos.length === 0 ? 1 : todos[todos.length -1].id + 1,
-                text : inputValue,
-                isDone : false,
-            }]);
+        if(inputValue.trim()) {
+            dispatch({
+               type : 'CREATE',
+               todo : {
+                   id : nextId.current,
+                   text : inputValue,
+                   isDone : false,
+               }
+            });
             setInputValue('');
+            nextId.current += 1;
         }
     }
 

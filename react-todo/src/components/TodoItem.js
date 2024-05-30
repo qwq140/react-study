@@ -1,22 +1,17 @@
-export function TodoItem({todos, todo, handleTodos}) {
+import {useTodoDispatch} from "../contexts/TodoContext";
 
-    function handleCheck() {
-        const newTodos = todos.map((e) => e.id === todo.id ? {...e, isDone : !e.isDone} : e);
-        handleTodos(newTodos);
-    }
+export function TodoItem({id, text, isDone}) {
 
-
-    function handleRemove() {
-        const newTodos = todos.filter((e) => e.id !== todo.id);
-        handleTodos(newTodos);
-    }
+    const dispatch = useTodoDispatch();
+    const onToggle = () => dispatch({type : 'TOGGLE', id});
+    const onRemove = () => dispatch({type : 'REMOVE', id});
 
 
     return (
-        <div className={`todo-item`} key={todo.id}>
-            <input type={"checkbox"} checked={todo.isDone} onChange={handleCheck}/>
-            <div className={`todo-item-text ${todo.isDone && "todo-done"}`}>{todo.text}</div>
-            <div onClick={handleRemove}>삭제</div>
+        <div className={`todo-item`} key={id}>
+            <input type={"checkbox"} checked={isDone} onChange={onToggle}/>
+            <div className={`todo-item-text ${isDone && "todo-done"}`}>{text}</div>
+            <div onClick={onRemove}>삭제</div>
         </div>
     );
 }
