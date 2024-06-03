@@ -1,10 +1,10 @@
 
 import './App.css';
-import Profile from "./5_passing_props_to_a_component/challenge/Challenge3";
+import DrinkList from "./6_conditional_rendering/challenge/Challenge3";
 
 function App() {
   return (
-      <Profile/>
+      <DrinkList/>
   );
 }
 
