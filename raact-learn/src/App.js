@@ -1,10 +1,11 @@
-
 import './App.css';
-import DrinkList from "./6_conditional_rendering/challenge/Challenge3";
+import List from "./7_rendering_lists/challenge/Challenge1";
+import RecipeList from "./7_rendering_lists/challenge/Challenge3";
+import Poem from "./7_rendering_lists/challenge/Challenge4";
 
 function App() {
   return (
-      <DrinkList/>
+      <Poem/>
   );
 }
 
