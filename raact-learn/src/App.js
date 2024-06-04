@@ -1,11 +1,11 @@
 import './App.css';
-import List from "./7_rendering_lists/challenge/Challenge1";
-import RecipeList from "./7_rendering_lists/challenge/Challenge3";
-import Poem from "./7_rendering_lists/challenge/Challenge4";
+import Toolbar from "./10_responding_to_events/Example5";
+import Signup from "./10_responding_to_events/Example6";
+import LightSwitch from "./10_responding_to_events/challenge/Challenge1";
 
 function App() {
   return (
-      <Poem/>
+      <LightSwitch/>
   );
 }
 
