@@ -1,0 +1,47 @@
+/**
+ * 챌린지 2 of 4: message 전송 시, input 입력 값 지우기
+ * 현재까지의 예시 코드를 실행 했을 때는 “Send”를 눌러도 아무런 일이 일어나지 않습니다.
+ * “Send” 버튼에 이벤트 핸들러를 추가하기 위해서 아래처럼 코드를 작성해봅시다.
+ *
+ * 1. 수신자의 email과 message를 담은 경고창(alert) 표시하기.
+ * 2. input의 message 값 지우기
+ */
+import { useReducer } from 'react';
+import Chat from './Chat.js';
+import ContactList from './ContactList.js';
+import {
+    initialState,
+    messengerReducer
+} from './messengerReducer';
+
+export default function Messenger() {
+    const [state, dispatch] = useReducer(
+        messengerReducer,
+        initialState
+    );
+    const message = state.message;
+    const contact = contacts.find(c =>
+        c.id === state.selectedId
+    );
+    return (
+        <div>
+            <ContactList
+                contacts={contacts}
+                selectedId={state.selectedId}
+                dispatch={dispatch}
+            />
+            <Chat
+                key={contact.id}
+                message={message}
+                contact={contact}
+                dispatch={dispatch}
+            />
+        </div>
+    );
+}
+
+const contacts = [
+    { id: 0, name: 'Taylor', email: 'taylor@mail.com' },
+    { id: 1, name: 'Alice', email: 'alice@mail.com' },
+    { id: 2, name: 'Bob', email: 'bob@mail.com' }
+];
